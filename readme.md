@@ -11,6 +11,11 @@ An educational Streamlit application for adding buy and sell orders, viewing bid
 
 This demonstrates order-book concepts. It is not connected to an exchange and must not be used for real trading.
 
+## Preview
+
+![Order Book application showing sorted buy and sell orders](docs/order-book-preview.png)
+
+
 ## Features
 
 - Add buy and sell orders with a symbol, quantity, and total price.
@@ -74,6 +79,10 @@ Orders with the same price share a colour. When several orders have the same sym
 - `requirements.txt`, pinned Python environment.
 - `help.txt`, short launch reminder.
 - `.vscode/settings.json`, editor configuration.
+
+## What this demonstrates
+
+The project combines a stateful Streamlit interface with validation, sorted bid and ask views, price-based colour grouping, and first-in handling for duplicate orders. It was built as a collaborative learning project, so the README keeps the original attribution while documenting the current limitations clearly.
 
 ## Possible improvements
 
