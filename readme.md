@@ -1,65 +1,89 @@
-<h1 align="center">
-  Orderbook Project<br>by Anjali & Finnley
-</h1>
+<h1 align="center">Order Book Project</h1>
+<p align="center">Created by Anjali and Finnley</p>
 
 <p align="center">
-  <a href="https://github.com/KeyErrorFinn/mthree-order-book-project/commits/main/"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/KeyErrorFinn/mthree-order-book-project" /></a>
-</p>
-<p align="center">
-  <a href="#"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff" /></a>
-  <a href="#"><img alt="Python" src="https://img.shields.io/badge/Streamlit-%23FE4B4B?logo=streamlit&logoColor=white" /></a>
+  <a href="https://github.com/KeyErrorFinn/mthree-order-book-project/commits/main"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/KeyErrorFinn/mthree-order-book-project" /></a>
+  <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff" />
+  <img alt="Streamlit" src="https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=fff" />
 </p>
 
-## Table of Contents
+An educational Streamlit application for adding buy and sell orders, viewing bids and asks, and removing an order when it is purchased or sold into.
 
-- [Table of Contents](#table-of-contents)
-- [About the Project](#about-the-project)
-- [How it Works](#how-it-works)
-- [How to Run](#how-to-run)
-- [Possible Additions](#possible-additions)
-
-## About the Project
-
-This project implements a simple Orderbook web application using Python and Streamlit.
-
-It allows users to add buy and sell orders for stocks, providing a real-time view of the active bids and asks that you input. You can also purchase sell orders, or sell to a buy order.
-
-It is designed to be intuitive and easy to use, demonstrating the fundamental concept of an orderbook in a financial context.
+This demonstrates order-book concepts. It is not connected to an exchange and must not be used for real trading.
 
 ## Features
 
-- **Add Buy/Sell Orders:** Easily input new stock orders, specifying the stock name, quantity, and total price.
-- **Purchase Sell Orders:** Purchase any available sell order by selecting the name of the stock, and its information.
-- **Sell to Buy Orders:** Sell to any available buy order by selecting the name of the stock, and its information.
-- **Dynamic Order Display:** You can view the separate columns for "Buy Orders" and "Sell Orders", which are updated as new orders are added.
-- **Input Validation:** Checks on all input fields to make sure there is not invalid data inputted, and that the output is correct.
-- **Unique Order IDs:** Each order is assigned a unique, generated ID.
-- **Stock Colouring:** Each stock price is assigned a unique colour and groups together similar stock prices in the same column.
+- Add buy and sell orders with a symbol, quantity, and total price.
+- Display bids and asks in separate columns.
+- Sort buy orders from highest to lowest price.
+- Sort sell orders from lowest to highest price.
+- Assign matching colours to orders at the same price.
+- Purchase a selected sell order.
+- Sell into a selected buy order.
+- Remove the oldest matching order when duplicates exist.
+- Validate empty, numeric, and negative inputs.
 
-## How it Works
+## Run locally
 
-- **User Interface:** Streamlit produces the interactive web interface such as display of the orderbook, selection dropdowns, input fields, and buttons.
-- **Order Addition:** When a new order is submitted, it validates the inputs, generates a unique ID, and then adds the order details *(Name, Order Type, Price, Quantity, Time, and Colour)* to the orderbook.
-- **Buying/Selling Stocks:** The selection dropdowns automatically populate with all unique stock names, then once a user selects the stock name, a new dropdown appears with all stock info for that stock, and once a user has selected the correct information and submitted it, it validates the inputted information, then it removes a the selected stock from the order book. If there is a stock with the exact same information, it will remove the oldest stock.
-- **Real-time Update:** The orderbook display automatically refreshes to show the latest buy and sell orders.
+~~~bash
+python -m pip install -r requirements.txt
+streamlit run main.py
+~~~
 
-## How to Run
+Streamlit normally opens the application in a browser. If it does not, use the local URL printed in the terminal.
 
-1. Make sure to have all the files in a folder.
-2. Open up a terminal and set your path to the folder.
-3. Install the required packages by entering the following in your terminal:
+## How the order book works
 
-   ```
-   pip install -r requirements.txt
-   ```
-4. Run the script using streamlit by enterting the following in your terminal:
+### Add an order
 
-   ```
-   streamlit run main.py
-   ```
-5. A web page should open and you can access the application there.
+1. Choose **Add Stock Order**.
+2. Select Buy or Sell.
+3. Enter a stock symbol, quantity, and total price.
+4. Submit the form.
 
-## Possible Additions
+The application uppercases the symbol, generates a six-digit order ID, records the current time, and assigns a colour based on the price.
 
-- [ ] Add a database (Either JSON or SQL).
-- [ ] Make into a Flask website.
+### Complete an order
+
+Choose **Purchase Sell Order** or **Sell to Buy Order**, then select a symbol and one of its displayed price and quantity combinations.
+
+The app removes one complete matching order. It does not support partial fills.
+
+## Current data behaviour
+
+The order book is stored in Streamlit session state:
+
+- Refreshing or restarting the session can reset the data.
+- There is no database or file persistence.
+- New sessions begin with demonstration orders already present in `main.py`.
+- The app does not match compatible orders automatically.
+- Prices are stored as entered strings and converted when sorting.
+
+## Display rules
+
+| Side | Sort order | Market term |
+| --- | --- | --- |
+| Buy | Highest price first | Bid |
+| Sell | Lowest price first | Ask |
+
+Orders with the same price share a colour. When several orders have the same symbol, price, and quantity, the oldest one is removed first.
+
+## Project files
+
+- `main.py`, complete Streamlit interface and in-memory order book.
+- `requirements.txt`, pinned Python environment.
+- `help.txt`, short launch reminder.
+- `.vscode/settings.json`, editor configuration.
+
+## Possible improvements
+
+- Replace the demonstration data with an empty initial book option.
+- Add persistent storage.
+- Support partial fills and remaining quantities.
+- Add automatic price matching.
+- Separate the matching logic from the Streamlit interface.
+- Add automated tests for validation and order priority.
+
+## Licence
+
+No project-level licence is currently included.
